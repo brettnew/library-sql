@@ -3,5 +3,14 @@
 
 <h2>Author: <%=@book.author().author_name()%></h2>
 
-<a href="/"><button class="btn">Home</a>
-<a href="/books/search"><button class="btn">Search for Books</a>
+<form action="/books/update/<%=@book.id() %>" method="post">
+  <input name="_method" type="hidden" value="patch">
+  <label for="title">New title:</label>
+  <input id="title" name="title" type="text"></br>
+
+<br>
+<button class="btn">Update Book</button><br>
+
+</form>
+
+<a href="/">Home</a>

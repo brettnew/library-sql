@@ -59,11 +59,16 @@ post('/authors') do
   erb(:index)
 end
 
-
-
 delete('/books/delete/') do
   @book = Book.find(params.fetch('book_id').to_i())
   @book.delete()
   @books = Book.all()
   erb(:index)
+end
+
+patch('/books/update/:id') do
+  title = params.fetch("title")
+  @book = Book.find(params.fetch("id").to_i())
+  @book.update({:title =>title})
+  erb(:book)
 end
