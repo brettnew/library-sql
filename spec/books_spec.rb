@@ -40,7 +40,7 @@ describe(Book) do
     end
   end
   describe(".find") do
-    it("returns a doctor by their ID") do
+    it("returns a book by their ID") do
       test_book = Book.new({:title => "Cookbook for Babies from Louisiana", :author_id => 1, :id => nil})
       test_book.save()
       test_book2 = Book.new({:title => "Cookbook for Babies", :author_id => 1, :id => nil})

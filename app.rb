@@ -18,13 +18,24 @@ get('/books') do
 end
 
 get('/authors') do
+  @books = Book.all()
   erb(:index)
 end
 
 post('/books') do
   title = params.fetch('title')
-  author = params.fetch('author_id')
-  book = Book.new({:title => title, :author => nil, :id => nil})
+  # author_id = params.fetch('author_id')
+  book = Book.new({:title => title, :author_id => 1, :id => nil})
+  book.save()
+  @book = book
+  @books = Book.all()
+  erb(:index)
+end
+
+post('/authors') do
+  title = params.fetch('title')
+  # author_id = params.fetch('author_id')
+  book = Book.new({:title => title, :author_id => 1, :id => nil})
   book.save()
   @book = book
   erb(:index)
