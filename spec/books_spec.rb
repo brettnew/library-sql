@@ -66,4 +66,15 @@ describe(Book) do
       expect(Book.all()).to(eq([test_book2]))
     end
   end
+
+  describe("#author") do
+    it("returns author object for a book") do
+      test_author = Author.new({:author_name => "Michael Jordan", :id => nil})
+      test_author.save()
+      test_book = Book.new({:title => "Cookbook for Babies from Louisiana", :author_id => test_author.id(), :id => nil})
+      test_book.save()
+      expect(test_book.author()).to(eq(test_author))
+    end
+  end
+
 end

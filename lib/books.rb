@@ -47,4 +47,9 @@ class Book
   define_method(:delete) do
     DB.exec("DELETE FROM books WHERE id = #{self.id()}")
   end
+
+  define_method(:author) do
+    author = Author.find(@author_id)
+    author
+  end
 end
