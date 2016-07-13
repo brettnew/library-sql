@@ -1,32 +1,20 @@
 <h1>Welcome to the Library</h1>
 
-<p>Create a new book:</p>
+<a href="/">Home</a>
+
+<h3>Create a new book:</h3>
 
 <form action="/books" method="post">
   <label for="title">Add title to book:</label>
   <input id="title" name="title" type="text"></br>
 
-  <!-- <button type="submit">Add title</button> -->
-
   <label for="author_id">Name of the author: </label>
   <input id="author_id" name="author_id" type="text"></br>
-
+<br>
   <button type="submit">Add Book</button>
 </form>
 
-<p> Add author to book:</p>
-
-<form action="/authors" method="post">
-  <label for="book_id">Select a Book</label>
-  <select id='book_id' name='book_id' type='text'>
-    <% @books.each() do |book| %>
-    <option value="<%= book.id()%>"> <%= book.title() %> </option>
-    <% end %>
-  </select>
-
-
-</form>
-
+<br>
 
 <% if @books.any?() %>
 <p>Click on a book to see its authors:</p>
@@ -40,5 +28,16 @@
 <p>There are no books yet!</p>
 <% end %>
 
-<a href="/"><button class="btn">Home</a>
-<a href="/books/search"><button class="btn">Search for Books</a>
+<br>
+<form action="/books/delete/" method="post">
+  <input name="_method" type="hidden" value="delete">
+
+  <label for="book_id">Delete a Book</label>
+  <select id='book_id' name='book_id' type='text'>
+    <% @books.each() do |book| %>
+    <option value="<%= book.id()%>"> <%= book.title() %> </option>
+    <% end %>
+  </select>
+
+  <button class="btn">Delete</button>
+</form>

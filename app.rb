@@ -42,8 +42,6 @@ end
 
 get('/books/:id') do
   @book = Book.find(params.fetch('id').to_i())
-  # @authors = Author.find(params.fetch('id').to_i())
-  # binding.pry
   erb(:book)
 end
 
@@ -58,5 +56,14 @@ post('/authors') do
   @books = Book.all()
   @author = author
   @authors = Author.all()
+  erb(:index)
+end
+
+
+
+delete('/books/delete/') do
+  @book = Book.find(params.fetch('book_id').to_i())
+  @book.delete()
+  @books = Book.all()
   erb(:index)
 end
