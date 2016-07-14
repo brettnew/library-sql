@@ -18,7 +18,7 @@ describe(Book) do
       expect(test_book.author_id()).to(eq(1))
     end
   end
-  describe('#save') do
+  describe('.save') do
     it('saves the books') do
       test_book = Book.new({:title => "Cookbook for Babies", :author_id => 1, :id => nil})
       test_book.save()
@@ -98,6 +98,15 @@ describe(Book) do
       test_book = Book.new({:title => "Cookbook for Babies from Louisiana", :author_id => test_author.id(), :id => nil})
       test_book.save()
       expect(test_book.author()).to(eq(test_author))
+    end
+  end
+  describe(".find_book") do
+    it("returns books to match search") do
+      test_book = Book.new({:title => "Cookbook for Babies from Louisiana", :author_id => 1, :id => nil})
+      test_book.save()
+      test_book2 = Book.new({:title => "Cooking with Babies from Louisiana", :author_id => 1, :id => nil})
+      test_book2.save()
+      expect(Book.find_book(test_book.title)).to(eq(test_book))
     end
   end
 

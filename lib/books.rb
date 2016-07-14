@@ -68,4 +68,11 @@ class Book
     author = Author.find(@author_id)
     author
   end
+  define_singleton_method(:find_book) do |search_term|
+    result = DB.exec("SELECT * FROM books WHERE title = '#{search_term}'").first
+    title = result.fetch('title')
+    author_id = result.fetch('author_id').to_i
+    id = result.fetch('id').to_i
+    returned_book = Book.new({:title => title, :author_id => author_id, :id => id})
+  end
 end
