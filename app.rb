@@ -4,6 +4,8 @@ also_reload('lib/**/*.rb')
 require('./lib/books')
 require('./lib/author')
 require('./lib/patron')
+require('./lib/checkout')
+require('date')
 require('pg')
 require('pry')
 

@@ -29,6 +29,10 @@ class Checkout
     self.checkout_date().==(another_checkout.checkout_date()).&(self.id().==(another_checkout.id())).&(self.book_id().==(another_checkout.book_id())).&(self.patron_id().==(another_checkout.patron_id()))
   end
 
+  define_method(:due) do
+    due_date = Date.today.next_day(7).to_s
+  end
+
   define_singleton_method(:find) do |id|
     found_checkout = nil
     Checkout.all().each() do |checkout|

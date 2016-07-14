@@ -54,6 +54,13 @@ describe(Checkout) do
       expect(Checkout.find(test_checkout2.id())).to(eq(test_checkout2))
     end
   end
+  describe("#due") do
+    it("returns the due date which is seven days after the checkout date") do
+      test_checkout = Checkout.new({:checkout_date => Date.today, :book_id => 1, :patron_id => 1, :id => nil})
+      test_checkout.save()
+      expect(test_checkout.due()).to(eq(Date.today.next_day(7).to_s))
+    end
+  end
   describe("#update") do
     it("lets you update checkout in the database") do
       checkout = Checkout.new({:checkout_date => "2016-01-01", :book_id => 1, :patron_id => 1, :id => nil})
