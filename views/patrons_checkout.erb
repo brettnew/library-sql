@@ -1,0 +1,14 @@
+<h1>Welcome, <%= @patron.patron_name() %></h1>
+
+<h3>Checkout Books:</h3>
+
+<form action="/books/checkout/<%= @patron.id()%>" method="post">
+
+  <label for="book_id">Check Out a Book</label>
+  <select id='book_id' name='book_id' type='text'>
+    <% @books.each() do |book| %>
+    <option value="<%= book.id()%>"> <%= book.title() %> </option>
+    <% end %>
+  </select>
+  <button class="btn">Check Out</button>
+</form>

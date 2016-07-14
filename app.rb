@@ -32,19 +32,15 @@ end
 post('/books') do
   title = params.fetch('title')
   author_name = params.fetch('author_id')
-  # patron_name = params.fetch('patron_name')
   author = Author.new({:author_name => author_name, :id => nil})
   author.save()
   book = Book.new({:title => title, :author_id => author.id(), :id => nil})
   book.save()
-  # patron = Patron.new({:patron_name => patron_name, :id => nil})
-  # patron.save()
   @book = book
   @books = Book.all()
   @author = author
   @authors = Author.all()
-  # @patron = patron
-  # @patrons = Patron.all()
+
   erb(:index)
 end
 
@@ -97,6 +93,28 @@ end
 
 get('/patrons/:id') do
   @patron = Patron.find(params.fetch("id").to_i())
+  @patrons = Patron.all
   @books = Book.all
-  erb(:patrons)
+  erb(:patrons_checkout)
+end
+
+get('/books/checkout/:id') do
+  @patron = Patron.find(params.fetch("book_id").to_i())
+  @book = Book.find(params.fetch("book_id").to_i)
+  @books = Book.all()
+  erb(:patrons_checkout_success)
+end
+
+post('patrons/:id') do
+  @patron = Patron.find(params.fetch("id").to_i())
+  @books = Book.all()
+  erb(:patrons_checkout_success)
+end
+
+post('/books/checkout/:id') do
+  @patron = Patron.find(params.fetch("id").to_i())
+  @patrons = Patron.all
+  @book = Book.find(params.fetch("book_id").to_i())
+  @books = Book.all()
+  erb(:patrons_checkout_success)
 end
