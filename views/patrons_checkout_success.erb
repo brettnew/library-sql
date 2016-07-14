@@ -2,4 +2,4 @@
 
 <h3>Thank you for visiting our library! Enjoy reading <%= @book.title() %>!</h3>
 
-<h4><%= @book.title() %> was checked out on  <%= @checkout.checkout_date() %> and is due back on </h4>
+<h4><%= @book.title() %> was checked out on  <%= @checkout.checkout_date() %> and is due back on <%= @checkout.checkout_date.next_day(7).to_s %></h4>
