@@ -55,7 +55,31 @@ describe(Book) do
       book.update({:title => "Cookbook for Butterflies"})
       expect(book.title()).to(eq("Cookbook for Butterflies"))
     end
+    it("lets you add book to a patron") do
+      book = Book.new({:title => "Poop Book", :author_id => 1, :id => nil})
+      book.save()
+      test_patron1 = Patron.new({:patron_name => "Cookbook for Robin Williams", :id => nil})
+      test_patron1.save()
+      test_patron2 = Patron.new({:patron_name => "Cookbook for Robin Williams", :id => nil})
+      test_patron2.save()
+      book.update({:patron_ids => [test_patron1.id(), test_patron2.id()]})
+      expect(book.patrons()).to(eq([test_patron1, test_patron2]))
+    end
   end
+
+  describe("#patrons") do
+    it("returns all of the patrons that have checked out a book") do
+      book = Book.new({:title => "Poop Book", :author_id => 1, :id => nil})
+      book.save()
+      test_patron1 = Patron.new({:patron_name => "Cookbook for Robin Williams", :id => nil})
+      test_patron1.save()
+      test_patron2 = Patron.new({:patron_name => "Cookbook for Robin Williams", :id => nil})
+      test_patron2.save()
+      book.update({:patron_ids => [test_patron1.id(), test_patron2.id()]})
+      expect(book.patrons()).to(eq([test_patron1, test_patron2]))
+    end
+  end
+
   describe("#delete") do
     it("lets you delete a book from the database") do
       test_book = Book.new({:title => "Cookbook for Babies from Louisiana", :author_id => 1, :id => nil})

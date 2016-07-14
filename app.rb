@@ -3,6 +3,7 @@ require('sinatra/reloader')
 also_reload('lib/**/*.rb')
 require('./lib/books')
 require('./lib/author')
+require('./lib/patron')
 require('pg')
 require('pry')
 
@@ -11,12 +12,14 @@ DB = PG.connect({:dbname => 'library_test'})
 get('/') do
   @books = Book.all()
   @authors = Author.all()
+  # @patrons = Patron.all()
   erb(:index)
 end
 
 get('/books') do
   @books = Book.all()
   @authors = Author.all()
+  # @patrons = Patron.all()
   erb(:index)
 end
 
@@ -29,19 +32,25 @@ end
 post('/books') do
   title = params.fetch('title')
   author_name = params.fetch('author_id')
+  # patron_name = params.fetch('patron_name')
   author = Author.new({:author_name => author_name, :id => nil})
   author.save()
   book = Book.new({:title => title, :author_id => author.id(), :id => nil})
   book.save()
+  # patron = Patron.new({:patron_name => patron_name, :id => nil})
+  # patron.save()
   @book = book
   @books = Book.all()
   @author = author
   @authors = Author.all()
+  # @patron = patron
+  # @patrons = Patron.all()
   erb(:index)
 end
 
 get('/books/:id') do
   @book = Book.find(params.fetch('id').to_i())
+  @patrons = Patron.all()
   erb(:book)
 end
 
@@ -71,4 +80,23 @@ patch('/books/update/:id') do
   @book = Book.find(params.fetch("id").to_i())
   @book.update({:title =>title})
   erb(:book)
+end
+
+get('/patrons') do
+  @patrons = Patron.all
+  erb(:patrons)
+end
+
+post('/patrons') do
+  patron_name = params.fetch("patron_name")
+  patron = Patron.new({:patron_name => patron_name, :id => nil})
+  patron.save()
+  @patrons = Patron.all
+  erb(:patrons)
+end
+
+get('/patrons/:id') do
+  @patron = Patron.find(params.fetch("id").to_i())
+  @books = Book.all
+  erb(:patrons)
 end
