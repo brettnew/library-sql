@@ -8,8 +8,8 @@ describe(Checkout) do
   end
   describe('#checkout_date') do
     it('tells you the date of the checkout') do
-      test_checkout = Checkout.new({:checkout_date => "2016-01-01", :book_id => 1, :patron_id => 1, :id => nil})
-      expect(test_checkout.checkout_date()).to(eq("2016-01-01"))
+      test_checkout = Checkout.new({:checkout_date => Date.new, :book_id => 1, :patron_id => 1, :id => nil})
+      expect(test_checkout.checkout_date()).to(eq(Date.new))
     end
   end
   describe('#book_id') do

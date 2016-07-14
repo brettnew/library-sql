@@ -101,13 +101,24 @@ get('/patrons/:id') do
 end
 
 
-post('patrons/:id') do
+post('/patrons/:id') do
   @patron = Patron.find(params.fetch("id").to_i())
   @books = Book.all()
   erb(:patrons_checkout_success)
 end
 
+get('/books/checkout/:id') do
+  @checkouts = Checkout.all()
+  erb(:patrons_checkout_success)
+end
+
 post('/books/checkout/:id') do
+  checkout_date = Date.today()
+  book_id = params.fetch("book_id").to_i()
+  patron_id = params.fetch("id").to_i()
+  checkout = Checkout.new({:checkout_date => checkout_date, :book_id => book_id, :patron_id => patron_id, :id => nil})
+  checkout.save()
+  @checkout = checkout
   @patron = Patron.find(params.fetch("id").to_i())
   @patrons = Patron.all
   @book = Book.find(params.fetch("book_id").to_i())
