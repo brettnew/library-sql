@@ -98,12 +98,6 @@ get('/patrons/:id') do
   erb(:patrons_checkout)
 end
 
-get('/books/checkout/:id') do
-  @patron = Patron.find(params.fetch("book_id").to_i())
-  @book = Book.find(params.fetch("book_id").to_i)
-  @books = Book.all()
-  erb(:patrons_checkout_success)
-end
 
 post('patrons/:id') do
   @patron = Patron.find(params.fetch("id").to_i())

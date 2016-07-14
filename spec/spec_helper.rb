@@ -3,6 +3,7 @@ require('pg')
 require('books')
 require('patron')
 require('author')
+require('checkout')
 require('pry')
 
 DB = PG.connect({:dbname => "library_test"})
